@@ -11,7 +11,6 @@ namespace espeon {
         rect.y = pos.y;
         rect.w = size.x;
         rect.h = size.y;
-        SDL_RenderRect(this->renderer, &rect);
 
         return rect;
     }

@@ -11,8 +11,13 @@ namespace espeon {
             static BackendRenderer instance;
             return &instance;
         }
+
         void setup(SDL_Renderer* renderer) {
             this->renderer = renderer;
+        }
+
+        SDL_Renderer* getRenderer() {
+            return this->renderer;
         }
 
         SDL_FRect drawPrimitive(Vector2 pos, Vector2 size, SDL_Color outlineColor);

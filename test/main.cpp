@@ -1,18 +1,26 @@
+#include <iostream>
+
 #define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
 #include <espeon/Scene.hpp>
-#include <espeon/backend/BackendRenderer.hpp>
+#include <espeon/UI/Button.hpp>
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 
 class CustomScene : public espeon::Scene<CustomScene> {
     bool init() override {
-        espeon::BackendRenderer::get()->drawPrimitive(
-            {100, 100}, {250, 100}, {0, 255, 0, SDL_ALPHA_OPAQUE}
+        auto button = new espeon::Button(
+            {100, 100}, {250, 100}, {0, 0, 255, SDL_ALPHA_OPAQUE}
         );
+
+        button->onClick([]() {
+            std::cout << "hello world!" << std::endl;
+        });
+
+        this->addElement(button); 
 
         return true;
     }
@@ -26,6 +34,8 @@ public:
         return ret;
     }
 };
+
+CustomScene* scene;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
@@ -46,7 +56,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
     SDL_RenderClear(renderer);
 
-    CustomScene* scene = CustomScene::create(renderer);
+    scene = CustomScene::create(renderer);
 
     SDL_RenderPresent(renderer);
 
@@ -58,11 +68,18 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
+
+    if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        SDL_FPoint click = {event->button.x, event->button.y};
+        scene->detectOnClick(click);
+    }
+
     return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate)
 {
+    scene->drawAllElements();
     return SDL_APP_CONTINUE;
 }
 
