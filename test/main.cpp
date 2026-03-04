@@ -3,6 +3,7 @@
 #define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
 
 #include <espeon/Scene.hpp>
 #include <espeon/SceneManager.hpp>
@@ -14,7 +15,7 @@ static SDL_Renderer *renderer = NULL;
 class CustomScene : public espeon::Scene {
     bool init() override {
         auto button = new espeon::Button(
-            {100, 100}, {250, 100}, {0, 0, 255, SDL_ALPHA_OPAQUE}
+            {100, 100}, {250, 100}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
         );
 
         button->onClick([]() {
@@ -43,7 +44,7 @@ public:
 class CustomScene2 : public espeon::Scene {
     bool init() override {
         auto button = new espeon::Button(
-            {100, 200}, {250, 100}, {0, 255, 0, SDL_ALPHA_OPAQUE}
+            {100, 200}, {250, 100}, SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE}
         );
 
         button->onClick([]() {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <SDL3/SDL.h>
 
 #include "espeon/backend/BackendRenderer.hpp"
@@ -10,6 +11,7 @@ namespace espeon {
     class Button : public UIBase {
     public:
         Button(Vector2 pos, Vector2 size, SDL_Color fillColor);
+        Button(Vector2 pos, Vector2 size, std::string texturePath);
 
         void draw() override;
 
@@ -23,8 +25,11 @@ namespace espeon {
     private:
         Vector2 pos;
         Vector2 size;
-        SDL_Color fillColor;
-
         BackendRenderer* backendRenderer;
+
+        SDL_Color fillColor;
+        
+        std::string texturePath;
+        SDL_Texture* texture;
     };
 }

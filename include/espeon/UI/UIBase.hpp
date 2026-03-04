@@ -4,6 +4,8 @@
 
 #include <SDL3/SDL_rect.h>
 
+#include "espeon/types/EDrawType.hpp"
+
 namespace espeon {
     class UIBase {
     public:
@@ -13,5 +15,6 @@ namespace espeon {
         std::function<void()> c_onClick;
         std::function<void()> c_onHover;
         SDL_FRect rect;
+        EDrawType drawType;
 };
 }
