@@ -16,6 +16,7 @@ namespace espeon {
         void draw() override;
 
         bool loadTexture(std::string texturePath);
+        void unloadTexture();
         
         Vector2 getPos();
         void setPos(Vector2 pos);

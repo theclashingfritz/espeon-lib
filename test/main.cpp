@@ -15,19 +15,19 @@ static SDL_Renderer *renderer = NULL;
 class CustomScene : public espeon::Scene {
     bool init() override {
         auto button = new espeon::Button(
-            {100, 100}, {250, 100}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
+            {100, 100}, {500, 50}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
         );
 
         button->onClick([button]() {
             button->loadTexture("./don_toliver.jpg");
         });
 
-        button->onHover([]() {
-            std::cout << "i got hovered !" << std::endl;
+        button->onHover([button]() {
+            button->loadTexture("./Common/Media/Graphics/MainMenuButton_Over.png");
         });
 
-        button->onHoverEnd([]() {
-            std::cout << "hover end" << std::endl;
+        button->onHoverEnd([button]() {
+            button->loadTexture("./Common/Media/Graphics/MainMenuButton_Norm.png");
         });
 
         this->addElement(button); 

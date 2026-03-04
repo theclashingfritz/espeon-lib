@@ -59,12 +59,19 @@ namespace espeon {
     }
 
     bool Button::loadTexture(std::string texturePath) {
+        this->unloadTexture();
+
         this->texture = IMG_LoadTexture(this->backendRenderer->getRenderer(), texturePath.c_str());
         if (!this->texture) {
             return false;
         }
-        
+
         return true;
+    }
+
+    void Button::unloadTexture() {
+        SDL_DestroyTexture(this->texture);
+        this->texture = nullptr;
     }
 
     Vector2 Button::getPos() {
