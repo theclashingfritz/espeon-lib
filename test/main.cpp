@@ -21,6 +21,10 @@ class CustomScene : public espeon::Scene {
             std::cout << "hello world!" << std::endl;
         });
 
+        button->onHover([]() {
+            std::cout << "i got hovered !" << std::endl;
+        });
+
         this->addElement(button); 
 
         return true;
@@ -93,15 +97,6 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
-    }
-
-    if (event->type == SDL_EVENT_KEY_DOWN) {
-        if (event->key.key == SDLK_SPACE) {
-            sceneManager->loadScene<CustomScene>(renderer);
-        }
-        if (event->key.key == SDLK_TAB) {
-            sceneManager->loadScene<CustomScene2>(renderer);
-        }
     }
 
     sceneManager->updateSceneEvents(event);

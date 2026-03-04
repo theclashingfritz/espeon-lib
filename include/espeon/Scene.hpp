@@ -19,6 +19,7 @@ namespace espeon {
         void addElement(UIBase* element);
         void drawAllElements();
         void detectOnClick(SDL_FPoint click);
+        void detectOnHover(SDL_FPoint coords);
         
     private:
         virtual bool init() {
@@ -26,6 +27,6 @@ namespace espeon {
         }
         
         SDL_Renderer* renderer;
-        std::vector<std::unique_ptr<UIBase>> elements;
+        std::vector<std::unique_ptr<UIBase>> elements = {};
     };
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include <SDL3/SDL.h>
 
 #include "espeon/backend/BackendRenderer.hpp"
@@ -17,6 +15,10 @@ namespace espeon {
 
         void onClick(std::function<void()> callback) {
             this->c_onClick = callback;
+        }
+
+        void onHover(std::function<void()> callback) {
+            this->c_onHover = callback;
         }
     private:
         Vector2 pos;

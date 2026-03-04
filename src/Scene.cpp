@@ -32,4 +32,14 @@ namespace espeon {
             }
         }
     }
+
+    void Scene::detectOnHover(SDL_FPoint coords) {
+        if (!this->elements.empty()) {
+            for (auto& element : this->elements) {
+                if (SDL_PointInRectFloat(&coords, &element->rect)) {
+                    element->c_onHover();
+                }
+            }
+        }
+    }
 }

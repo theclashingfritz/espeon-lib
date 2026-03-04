@@ -42,6 +42,12 @@ namespace espeon {
                 SDL_FPoint click = {event->button.x, event->button.y};
                 currentScene->detectOnClick(click);
             }
+
+            if (event->type == SDL_EVENT_MOUSE_MOTION) {
+                SDL_FPoint mouseCoords;
+                SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
+                currentScene->detectOnHover(mouseCoords);
+            }
         } 
 
     private:
