@@ -15,17 +15,15 @@ namespace espeon {
         rect.h = size.y;
         this->rect = rect;
 
-        this->text = text;
+        this->textEngine = this->backendRenderer->getTextEngine();
         this->font = font;
-
-        SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), text.length(), color);
-        this->textTexture = SDL_CreateTextureFromSurface(this->backendRenderer->getRenderer(), surface);
-        SDL_DestroySurface(surface);
+        this->text = TTF_CreateText(this->textEngine, this->font, text.c_str(), 0);
     }
 
     void Label::draw() {
-        auto renderer = this->backendRenderer->getRenderer();
-        SDL_RenderTexture(renderer, this->textTexture, NULL, &this->rect);
+        TTF_DrawRendererText(this->text, this->pos.x, this->pos.y);
+
+        UIBase::draw();
     }
 
     TTF_Font* Label::loadFont(std::string path, int fontSize) {

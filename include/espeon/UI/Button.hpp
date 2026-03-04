@@ -15,6 +15,10 @@ namespace espeon {
         
         void draw() override;
 
+        void setLabel(std::string text) {
+            
+        }
+
         bool loadTexture(std::string texturePath);
         void unloadTexture();
         
@@ -35,5 +39,6 @@ namespace espeon {
         
         std::string texturePath;
         SDL_Texture* texture;
+        std::string label;
     };
 }

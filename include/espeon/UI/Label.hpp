@@ -12,6 +12,7 @@ namespace espeon {
     class Label : public UIBase {
     public:
         Label(Vector2 pos, Vector2 size, std::string text, TTF_Font* font, SDL_Color color);
+        static SDL_Texture* createRawLabel(std::string text, TTF_Font* font, SDL_Color color);
 
         void draw() override;
         static TTF_Font* loadFont(std::string path, int fontSize);
@@ -21,8 +22,8 @@ namespace espeon {
         Vector2 size;
         BackendRenderer* backendRenderer;
 
-        std::string text;
-        SDL_Texture* textTexture;
+        TTF_TextEngine* textEngine;
+        TTF_Text* text;
         TTF_Font* font;
     };
 }

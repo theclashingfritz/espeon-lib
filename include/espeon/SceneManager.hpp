@@ -38,15 +38,17 @@ namespace espeon {
         }
 
         void updateSceneEvents(SDL_Event* event) {
-            if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-                SDL_FPoint click = {event->button.x, event->button.y};
-                currentScene->detectOnClick(click);
-            }
+            if (currentScene != nullptr) {
+                if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+                    SDL_FPoint click = {event->button.x, event->button.y};
+                    currentScene->detectOnClick(click);
+                }
 
-            if (event->type == SDL_EVENT_MOUSE_MOTION) {
-                SDL_FPoint mouseCoords;
-                SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
-                currentScene->detectOnHover(mouseCoords);
+                if (event->type == SDL_EVENT_MOUSE_MOTION) {
+                    SDL_FPoint mouseCoords;
+                    SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
+                    currentScene->detectOnHover(mouseCoords);
+                }
             }
         } 
 

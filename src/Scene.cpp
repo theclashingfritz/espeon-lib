@@ -15,9 +15,6 @@ namespace espeon {
     }
 
     void Scene::drawAllElements() {
-        SDL_SetRenderDrawColor(renderer, 33, 33, 33, SDL_ALPHA_OPAQUE);
-        SDL_RenderClear(renderer);
-
         for (auto& element : elements) {
             element->draw();
         }

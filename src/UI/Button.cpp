@@ -58,6 +58,8 @@ namespace espeon {
                 break;
             }
         }
+
+        UIBase::draw();
     }
 
     bool Button::loadTexture(std::string texturePath) {

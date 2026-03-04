@@ -1,6 +1,8 @@
 #pragma once
 
 #include <functional>
+#include <memory>
+#include <vector>
 
 #include <SDL3/SDL_rect.h>
 
@@ -10,7 +12,20 @@ namespace espeon {
     class UIBase {
     public:
         virtual ~UIBase() = default;
-        virtual void draw() = 0;
+        virtual void draw() {
+            this->drawAllElements();
+        };
+
+        void addElement(UIBase* element) {
+            this->elements.push_back(std::unique_ptr<UIBase>(element));
+        }
+        void drawAllElements() {
+            if (!elements.empty()) {
+                for (auto& element : elements) {
+                    element->draw();
+                }
+            }
+        }
 
         SDL_FRect getRect() {
             return this->rect;
@@ -64,5 +79,6 @@ namespace espeon {
         std::function<void()> c_onClick = std::function<void()>();
         std::function<void()> c_onHover = std::function<void()>();
         std::function<void()> c_onHoverEnd = std::function<void()>();
+        std::vector<std::unique_ptr<UIBase>> elements = {};
     };
 }
