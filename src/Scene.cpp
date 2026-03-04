@@ -15,8 +15,8 @@ namespace espeon {
     }
 
     void Scene::drawAllElements() {
-        SDL_SetRenderDrawColor(renderer, 33, 33, 33, SDL_ALPHA_OPAQUE);  /* dark gray, full alpha */
-        SDL_RenderClear(renderer);  /* start with a blank canvas. */
+        SDL_SetRenderDrawColor(renderer, 33, 33, 33, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(renderer);
 
         for (auto& element : elements) {
             element->draw();
@@ -33,12 +33,20 @@ namespace espeon {
         }
     }
 
+    bool wasHovering = false;
     void Scene::detectOnHover(SDL_FPoint coords) {
         if (!this->elements.empty()) {
             for (auto& element : this->elements) {
-                if (SDL_PointInRectFloat(&coords, &element->rect)) {
+                bool isHovering = SDL_PointInRectFloat(&coords, &element->rect);
+                if (isHovering && !wasHovering) {
                     element->c_onHover();
                 }
+
+                if (!isHovering && wasHovering) {
+                    element->c_onHoverEnd();
+                }
+
+                wasHovering = isHovering;
             }
         }
     }

@@ -57,4 +57,37 @@ namespace espeon {
             }
         }
     }
+
+    bool Button::loadTexture(std::string texturePath) {
+        this->texture = IMG_LoadTexture(this->backendRenderer->getRenderer(), texturePath.c_str());
+        if (!this->texture) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    Vector2 Button::getPos() {
+        return this->pos;
+    }
+
+    void Button::setPos(Vector2 pos) {
+        this->pos = pos;
+    }
+
+    Vector2 Button::getSize() {
+        return this->size;
+    }
+
+    void Button::setSize(Vector2 size) {
+        this->size = size;
+    }
+
+    SDL_Texture* Button::getTexture() {
+        return this->texture;
+    }
+
+    void Button::setTexture(SDL_Texture* texture) {
+        this->texture = texture;
+    }
 }

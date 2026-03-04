@@ -18,12 +18,16 @@ class CustomScene : public espeon::Scene {
             {100, 100}, {250, 100}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
         );
 
-        button->onClick([]() {
-            std::cout << "hello world!" << std::endl;
+        button->onClick([button]() {
+            button->loadTexture("./don_toliver.jpg");
         });
 
         button->onHover([]() {
             std::cout << "i got hovered !" << std::endl;
+        });
+
+        button->onHoverEnd([]() {
+            std::cout << "hover end" << std::endl;
         });
 
         this->addElement(button); 

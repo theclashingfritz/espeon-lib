@@ -14,6 +14,7 @@ namespace espeon {
     
         std::function<void()> c_onClick;
         std::function<void()> c_onHover;
+        std::function<void()> c_onHoverEnd;
         SDL_FRect rect;
         EDrawType drawType;
 };
