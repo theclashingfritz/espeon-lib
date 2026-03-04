@@ -4,10 +4,12 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 #include <espeon/Scene.hpp>
 #include <espeon/SceneManager.hpp>
 #include <espeon/UI/Button.hpp>
+#include <espeon/UI/Label.hpp>
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -31,6 +33,12 @@ class CustomScene : public espeon::Scene {
         });
 
         this->addElement(button); 
+
+        auto label = new espeon::Label(
+            {250, 125}, {250, 50}, "Minecraft", espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16), {255, 255, 255, SDL_ALPHA_OPAQUE}
+        );
+
+        this->addElement(label);
 
         return true;
     }
@@ -78,6 +86,11 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
+    }
+
+    if (!TTF_Init()) {
+        SDL_Log("Couldn't initialize TTF: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 

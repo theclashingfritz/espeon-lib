@@ -26,18 +26,6 @@ namespace espeon {
 
         SDL_Texture* getTexture();
         void setTexture(SDL_Texture* texture);
-
-        void onClick(std::function<void()> callback) {
-            this->c_onClick = callback;
-        }
-
-        void onHover(std::function<void()> callback) {
-            this->c_onHover = callback;
-        }
-
-        void onHoverEnd(std::function<void()> callback) {
-            this->c_onHoverEnd = callback;
-        }
     private:
         Vector2 pos;
         Vector2 size;

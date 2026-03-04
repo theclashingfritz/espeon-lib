@@ -6,19 +6,21 @@
 
 namespace espeon {
     Button::Button(Vector2 pos, Vector2 size, SDL_Color fillColor) {
-       this->pos = pos;
-       this->size = size;
-       this->fillColor = fillColor;
-       this->backendRenderer = BackendRenderer::get();
+        this->setDefaultCallbacks();
+        
+        this->pos = pos;
+        this->size = size;
+        this->fillColor = fillColor;
+        this->backendRenderer = BackendRenderer::get();
 
-       SDL_FRect rect;
-       rect.x = pos.x;
-       rect.y = pos.y;
-       rect.w = size.x;
-       rect.h = size.y;
-       this->rect = rect;
+        SDL_FRect rect;
+        rect.x = pos.x;
+        rect.y = pos.y;
+        rect.w = size.x;
+        rect.h = size.y;
+        this->rect = rect;
 
-       this->drawType = EDrawType::ESPEON_DRAW_FILLED;
+        this->drawType = EDrawType::ESPEON_DRAW_FILLED;
     }
 
     Button::Button(Vector2 pos, Vector2 size, std::string texturePath) {
