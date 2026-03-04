@@ -9,6 +9,7 @@
 #include <espeon/Scene.hpp>
 #include <espeon/SceneManager.hpp>
 #include <espeon/UI/Button.hpp>
+#include <espeon/UI/Layout.hpp>
 #include <espeon/UI/Label.hpp>
 
 static SDL_Window *window = NULL;
@@ -16,6 +17,11 @@ static SDL_Renderer *renderer = NULL;
 
 class CustomScene : public espeon::Scene {
     bool init() override {
+        auto layout = new espeon::Layout(
+            {300, 300}, {500, 500}, espeon::Layout::LayoutDirection::COLUMN, espeon::Layout::LayoutAlign::CENTER
+        );
+        this->addElement(layout);
+
         auto button = new espeon::Button(
             {100, 100}, {500, 50}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
         );
@@ -32,7 +38,7 @@ class CustomScene : public espeon::Scene {
             button->loadTexture("./Common/Media/Graphics/MainMenuButton_Norm.png");
         });
 
-        this->addElement(button); 
+        layout->addElement(button);
 
         auto label = new espeon::Label(
             {250, 125}, {250, 50}, "Minecraft", espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16), {255, 255, 255, SDL_ALPHA_OPAQUE}

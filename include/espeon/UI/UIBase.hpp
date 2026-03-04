@@ -71,14 +71,41 @@ namespace espeon {
         void runOnHoverEnd() {
             this->c_onHoverEnd();
         }
+
+        void detectOnClick(SDL_FPoint click) {
+            for (auto& element : this->elements) {
+                if (SDL_PointInRectFloat(&click, &element->rect)) {
+                    element->runOnClick();
+                }
+            }
+        }
+
+        void detectOnHover(SDL_FPoint coords) {
+            if (!this->elements.empty()) {
+                for (auto& element : this->elements) {
+                    bool isHovering = SDL_PointInRectFloat(&coords, &element->rect);
+                    if (isHovering && !wasHovering) {
+                        element->runOnHover();
+                    }
+
+                    if (!isHovering && wasHovering) {
+                        element->runOnHoverEnd();
+                    }
+
+                    wasHovering = isHovering;
+                }
+            }
+        }
     
         SDL_FRect rect;
         EDrawType drawType;
+        bool passthrough = false;
+        std::vector<std::unique_ptr<UIBase>> elements = {};
 
     private:
+        bool wasHovering = false;
         std::function<void()> c_onClick = std::function<void()>();
         std::function<void()> c_onHover = std::function<void()>();
         std::function<void()> c_onHoverEnd = std::function<void()>();
-        std::vector<std::unique_ptr<UIBase>> elements = {};
     };
 }

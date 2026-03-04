@@ -24,6 +24,9 @@ namespace espeon {
 
     void Scene::detectOnClick(SDL_FPoint click) {
         for (auto& element : this->elements) {
+            if (element->passthrough) {
+                element->detectOnClick(click);
+            }
             if (SDL_PointInRectFloat(&click, &element->rect)) {
                 element->runOnClick();
             }
@@ -34,6 +37,10 @@ namespace espeon {
     void Scene::detectOnHover(SDL_FPoint coords) {
         if (!this->elements.empty()) {
             for (auto& element : this->elements) {
+                if (element->passthrough) {
+                    element->detectOnHover(coords);
+                }
+
                 bool isHovering = SDL_PointInRectFloat(&coords, &element->rect);
                 if (isHovering && !wasHovering) {
                     element->runOnHover();
