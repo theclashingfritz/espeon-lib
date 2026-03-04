@@ -38,7 +38,7 @@ class CustomScene : public espeon::Scene {
             {250, 125}, {250, 50}, "Minecraft", espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16), {255, 255, 255, SDL_ALPHA_OPAQUE}
         );
 
-        this->addElement(label);
+        button->addElement(label);
 
         return true;
     }
