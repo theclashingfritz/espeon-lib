@@ -18,8 +18,6 @@ namespace espeon {
         static TTF_Font* loadFont(std::string path, int fontSize);
 
     private:
-        Vector2 pos;
-        Vector2 size;
         BackendRenderer* backendRenderer;
 
         TTF_TextEngine* textEngine;

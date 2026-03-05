@@ -18,16 +18,15 @@ namespace espeon {
             CENTER
         };
 
-        Layout(Vector2 pos, Vector2 size, LayoutDirection direction, LayoutAlign align);
+        Layout(Vector2 pos, Vector2 size, LayoutDirection direction, LayoutAlign align, float spacing = 40.f);
 
         void updateLayout();
 
     private:
-        Vector2 pos;
-        Vector2 size;
         BackendRenderer* backendRenderer;
 
         LayoutDirection direction;
         LayoutAlign align;
+        float spacing;
     };
 }

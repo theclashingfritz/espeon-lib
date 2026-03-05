@@ -31,20 +31,28 @@ class CustomScene : public espeon::Scene {
         });
 
         button->onHover([button]() {
+            std::cout << "Hover Start" << std::endl;
             button->loadTexture("./Common/Media/Graphics/MainMenuButton_Over.png");
         });
 
         button->onHoverEnd([button]() {
+            std::cout << "Hover End" << std::endl;
             button->loadTexture("./Common/Media/Graphics/MainMenuButton_Norm.png");
         });
 
         layout->addElement(button);
 
-        auto label = new espeon::Label(
-            {250, 125}, {250, 50}, "Minecraft", espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16), {255, 255, 255, SDL_ALPHA_OPAQUE}
-        );
+        auto font = espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16);
 
-        button->addElement(label);
+        button->setLabel("Minecraft", font, {255, 255, 255, SDL_ALPHA_OPAQUE});
+
+        for (int i = 0; i < 10; i++) {
+            layout->addElement(new espeon::Label(
+                {0, 0}, {250, 50}, "test", font, {255, 255, 255, SDL_ALPHA_OPAQUE}
+            ));
+        }
+
+        layout->updateLayout();
 
         return true;
     }

@@ -4,6 +4,8 @@
 
 #include <SDL3_image/SDL_image.h>
 
+#include "espeon/UI/Label.hpp"
+
 namespace espeon {
     Button::Button(Vector2 pos, Vector2 size, SDL_Color fillColor) {
         this->setDefaultCallbacks();
@@ -62,6 +64,18 @@ namespace espeon {
         UIBase::draw();
     }
 
+    void Button::setLabel(std::string text, TTF_Font* font, SDL_Color color) {
+        auto label = new espeon::Label(
+            {0, 0}, 
+            {static_cast<int>(this->rect.w), static_cast<int>(this->rect.h)}, 
+            text, font, color
+        );
+        label->setPos(
+            {this->pos.x + (this->size.x / 2), this->pos.y + (this->size.y / 2)}
+        );
+        this->addElement(label);
+    }
+
     bool Button::loadTexture(std::string texturePath) {
         this->unloadTexture();
 
@@ -76,22 +90,6 @@ namespace espeon {
     void Button::unloadTexture() {
         SDL_DestroyTexture(this->texture);
         this->texture = nullptr;
-    }
-
-    Vector2 Button::getPos() {
-        return this->pos;
-    }
-
-    void Button::setPos(Vector2 pos) {
-        this->pos = pos;
-    }
-
-    Vector2 Button::getSize() {
-        return this->size;
-    }
-
-    void Button::setSize(Vector2 size) {
-        this->size = size;
     }
 
     SDL_Texture* Button::getTexture() {

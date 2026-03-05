@@ -7,6 +7,7 @@
 #include <SDL3/SDL_rect.h>
 
 #include "espeon/types/EDrawType.hpp"
+#include "espeon/types/Vector2.hpp"
 
 namespace espeon {
     class UIBase {
@@ -96,11 +97,29 @@ namespace espeon {
                 }
             }
         }
+
+        Vector2 getPos() {
+            return this->pos;
+        }
+
+        void setPos(Vector2 pos) {
+            this->pos = pos;
+        }
+
+        Vector2 getSize() {
+            return this->size;
+        }
+
+        void setSize(Vector2 size) {
+            this->size = size;
+        }
     
         SDL_FRect rect;
         EDrawType drawType;
         bool passthrough = false;
         std::vector<std::unique_ptr<UIBase>> elements = {};
+        Vector2 pos;
+        Vector2 size;
 
     private:
         bool wasHovering = false;

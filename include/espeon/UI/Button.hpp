@@ -15,24 +15,14 @@ namespace espeon {
         
         void draw() override;
 
-        void setLabel(std::string text) {
-            
-        }
+        void setLabel(std::string text, TTF_Font* font, SDL_Color color);
 
         bool loadTexture(std::string texturePath);
         void unloadTexture();
-        
-        Vector2 getPos();
-        void setPos(Vector2 pos);
-
-        Vector2 getSize();
-        void setSize(Vector2 size);
 
         SDL_Texture* getTexture();
         void setTexture(SDL_Texture* texture);
     private:
-        Vector2 pos;
-        Vector2 size;
         BackendRenderer* backendRenderer;
 
         SDL_Color fillColor;
