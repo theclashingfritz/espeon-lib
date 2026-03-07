@@ -3,9 +3,11 @@ The base for a UI Screen
 
 ### How to Use
 ```c++
-class CustomScene : public espeon::Scene<CustomScene> {
+class CustomScene : public espeon::Scene {
     bool init() override {
-        // rendering code here
+        // Rendering Code
+
+        return true;
     }
 
 public:

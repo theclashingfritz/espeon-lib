@@ -13,6 +13,19 @@
 namespace espeon {
     class UIBase {
     public:
+        UIBase(Vector2 pos, Vector2 size) {
+            this->setDefaultCallbacks();
+            this->pos = pos;
+            this->size = size;
+
+            SDL_FRect rect;
+            rect.x = pos.x;
+            rect.y = pos.y;
+            rect.w = size.x;
+            rect.h = size.y;
+            this->rect = HoverRect(rect);
+        }
+
         virtual ~UIBase() = default;
         virtual void draw() {
             this->drawAllElements();

@@ -7,27 +7,13 @@
 #include "espeon/UI/Label.hpp"
 
 namespace espeon {
-    Button::Button(Vector2 pos, Vector2 size, SDL_Color fillColor) {
-        this->setDefaultCallbacks();
-        
-        this->pos = pos;
-        this->size = size;
+    Button::Button(Vector2 pos, Vector2 size, SDL_Color fillColor) : UIBase(pos, size) {
         this->fillColor = fillColor;
         this->backendRenderer = BackendRenderer::get();
-
-        SDL_FRect rect;
-        rect.x = pos.x;
-        rect.y = pos.y;
-        rect.w = size.x;
-        rect.h = size.y;
-        this->rect = HoverRect(rect);
-
         this->drawType = EDrawType::ESPEON_DRAW_FILLED;
     }
 
-    Button::Button(Vector2 pos, Vector2 size, std::string texturePath) {
-        this->pos = pos;
-        this->size = size;
+    Button::Button(Vector2 pos, Vector2 size, std::string texturePath) : UIBase(pos, size) {
         this->texturePath = texturePath;
         this->backendRenderer = BackendRenderer::get();
 
@@ -35,13 +21,6 @@ namespace espeon {
         if (!this->texture) {
             std::cout << "Failed to load texture: " << SDL_GetError() << std::endl;
         }
-
-        SDL_FRect rect;
-        rect.x = pos.x;
-        rect.y = pos.y;
-        rect.w = size.x;
-        rect.h = size.y;
-        this->rect = rect;
 
         this->drawType = EDrawType::ESPEON_DRAW_TEXTURE;
     }

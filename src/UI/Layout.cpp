@@ -1,13 +1,13 @@
 #include "espeon/UI/Layout.hpp"
 
 namespace espeon {
-    Layout::Layout(Vector2 pos, Vector2 size, LayoutDirection direction, LayoutAlign align, float spacing) {
-        this->setDefaultCallbacks();
+    Layout::Layout(Vector2 pos, Vector2 size, LayoutDirection direction, LayoutAlign align, float spacing) : UIBase(pos, size) {
         this->passthrough = true;
 
         this->pos = pos;
         this->size = size;
         this->backendRenderer = BackendRenderer::get();
+        this->rect = HoverRect();
 
         this->direction = direction;
         this->align = align;

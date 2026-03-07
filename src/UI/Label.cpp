@@ -1,7 +1,7 @@
 #include "espeon/UI/Label.hpp"
 
 namespace espeon {
-    Label::Label(Vector2 pos, Vector2 size, std::string text, TTF_Font* font, SDL_Color color) {
+    Label::Label(Vector2 pos, Vector2 size, std::string text, TTF_Font* font, SDL_Color color) : UIBase(pos, size) {
         this->setDefaultCallbacks();
 
         this->pos = pos;
