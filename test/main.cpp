@@ -18,7 +18,7 @@ static SDL_Renderer *renderer = NULL;
 class CustomScene : public espeon::Scene {
     bool init() override {
         auto layout = new espeon::Layout(
-            {300, 300}, {500, 500}, espeon::Layout::LayoutDirection::COLUMN, espeon::Layout::LayoutAlign::CENTER
+            {300, 300}, {500, 500}, espeon::Layout::LayoutDirection::ROW, espeon::Layout::LayoutAlign::LEFT
         );
         this->addElement(layout);
 
@@ -39,12 +39,11 @@ class CustomScene : public espeon::Scene {
             std::cout << "Hover End" << std::endl;
             button->loadTexture("./Common/Media/Graphics/MainMenuButton_Norm.png");
         });
-
-        layout->addElement(button);
-
         auto font = espeon::Label::loadFont("./Common/res/font/mojangles.otf", 16);
 
         button->setLabel("Minecraft", font, {255, 255, 255, SDL_ALPHA_OPAQUE});
+
+        layout->addElement(button);
 
         for (int i = 0; i < 10; i++) {
             layout->addElement(new espeon::Label(

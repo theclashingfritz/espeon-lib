@@ -9,13 +9,6 @@ namespace espeon {
         this->size = size;
         this->backendRenderer = BackendRenderer::get();
 
-        SDL_FRect rect;
-        rect.x = pos.x;
-        rect.y = pos.y;
-        rect.w = size.x;
-        rect.h = size.y;
-        this->rect = rect;
-
         this->direction = direction;
         this->align = align;
         this->spacing = spacing;
@@ -24,20 +17,17 @@ namespace espeon {
     void Layout::updateLayout() {
         switch (this->direction) {
             case ROW: {
-                break;
-            }
-            case COLUMN: {
                 switch (this->align) {
                     case LEFT: {
                         Vector2 lastPos = {0, 0};
                         for (auto& element : elements) {
                             Vector2 currentPos = element->pos;
                             if (lastPos.x == 0 && lastPos.y == 0) {
-                                currentPos.x = this->rect.x;
-                                currentPos.y = (this->rect.h / 2) + 40;
+                                currentPos.x = this->pos.x;
+                                currentPos.y = (this->size.y / 2);
                             } else {
-                                currentPos.x = lastPos.x;
-                                currentPos.y = lastPos.y + 40;
+                                currentPos.x = lastPos.x + this->spacing;
+                                currentPos.y = lastPos.y;
                             }
                             element->setPos(currentPos);
                             lastPos = currentPos;
@@ -49,11 +39,11 @@ namespace espeon {
                         for (auto& element : elements) {
                             Vector2 currentPos = element->pos;
                             if (lastPos.x == 0 && lastPos.y == 0) {
-                                currentPos.x = this->rect.w + this->rect.x;
-                                currentPos.y = (this->rect.h / 2) + 40;
+                                currentPos.x = this->size.x + this->pos.x;
+                                currentPos.y = (this->size.y / 2);
                             } else {
-                                currentPos.x = lastPos.x;
-                                currentPos.y = lastPos.y + 40;
+                                currentPos.x = lastPos.x + this->spacing;
+                                currentPos.y = lastPos.y;
                             }
                             element->setPos(currentPos);
                             lastPos = currentPos;
@@ -65,11 +55,64 @@ namespace espeon {
                         for (auto& element : elements) {
                             Vector2 currentPos = element->pos;
                             if (lastPos.x == 0 && lastPos.y == 0) {
-                                currentPos.x = (this->rect.w / 2) + this->rect.x;
-                                currentPos.y = this->rect.h / 2;
+                                currentPos.x = (this->size.x / 2) + this->pos.x;
+                                currentPos.y = this->size.y / 2;
+                            } else {
+                                currentPos.x = lastPos.x + this->spacing;
+                                currentPos.y = lastPos.y;
+                            }
+                            element->setPos(currentPos);
+                            lastPos = currentPos;
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            case COLUMN: {
+                switch (this->align) {
+                    case LEFT: {
+                        Vector2 lastPos = {0, 0};
+                        for (auto& element : elements) {
+                            Vector2 currentPos = element->pos;
+                            if (lastPos.x == 0 && lastPos.y == 0) {
+                                currentPos.x = this->pos.x;
+                                currentPos.y = (this->size.y / 2);
                             } else {
                                 currentPos.x = lastPos.x;
-                                currentPos.y = lastPos.y + 40;
+                                currentPos.y = lastPos.y + this->spacing;
+                            }
+                            element->setPos(currentPos);
+                            lastPos = currentPos;
+                        }
+                        break;
+                    }
+                    case RIGHT: {
+                        Vector2 lastPos = {0, 0};
+                        for (auto& element : elements) {
+                            Vector2 currentPos = element->pos;
+                            if (lastPos.x == 0 && lastPos.y == 0) {
+                                currentPos.x = this->size.x + this->pos.x;
+                                currentPos.y = (this->size.y / 2);
+                            } else {
+                                currentPos.x = lastPos.x;
+                                currentPos.y = lastPos.y + this->spacing;
+                            }
+                            element->setPos(currentPos);
+                            lastPos = currentPos;
+                        }
+                        break;
+                    }
+                    case CENTER: {
+                        Vector2 lastPos = {0, 0};
+                        for (auto& element : elements) {
+                            Vector2 currentPos = element->pos;
+                            if (lastPos.x == 0 && lastPos.y == 0) {
+                                currentPos.x = (this->size.x / 2) + this->pos.x;
+                                currentPos.y = this->size.y / 2;
+                            } else {
+                                currentPos.x = lastPos.x;
+                                currentPos.y = lastPos.y + this->spacing;
                             }
                             element->setPos(currentPos);
                             lastPos = currentPos;
