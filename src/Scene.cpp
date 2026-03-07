@@ -27,30 +27,28 @@ namespace espeon {
             if (element->passthrough) {
                 element->detectOnClick(click);
             }
-            if (SDL_PointInRectFloat(&click, &element->rect)) {
+
+            if (SDL_PointInRectFloat(&click, &element->rect.rect)) {
                 element->runOnClick();
             }
         }
     }
 
-    bool wasHovering = false;
     void Scene::detectOnHover(SDL_FPoint coords) {
+        bool wasHovering = false;
         if (!this->elements.empty()) {
             for (auto& element : this->elements) {
                 if (element->passthrough) {
                     element->detectOnHover(coords);
                 }
 
-                bool isHovering = SDL_PointInRectFloat(&coords, &element->rect);
-                if (isHovering && !wasHovering) {
-                    element->runOnHover();
+                if (element->rect.update(coords)) {
+                    if (element->rect.justEntered()) {
+                        element->runOnHover();
+                    } else {
+                        element->runOnHoverEnd();
+                    }
                 }
-
-                if (!isHovering && wasHovering) {
-                    element->runOnHoverEnd();
-                }
-
-                wasHovering = isHovering;
             }
         }
     }

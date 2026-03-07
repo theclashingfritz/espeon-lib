@@ -23,5 +23,7 @@ namespace espeon {
         TTF_TextEngine* textEngine;
         TTF_Text* text;
         TTF_Font* font;
+
+        SDL_Texture* textTexture;
     };
 }

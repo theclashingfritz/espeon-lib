@@ -20,7 +20,7 @@ namespace espeon {
         rect.y = pos.y;
         rect.w = size.x;
         rect.h = size.y;
-        this->rect = rect;
+        this->rect = HoverRect(rect);
 
         this->drawType = EDrawType::ESPEON_DRAW_FILLED;
     }
@@ -51,12 +51,13 @@ namespace espeon {
             case ESPEON_DRAW_FILLED: {
                 auto renderer = this->backendRenderer->getRenderer();
                 SDL_SetRenderDrawColor(renderer, this->fillColor.r, this->fillColor.g, this->fillColor.b, this->fillColor.a);
-                SDL_RenderFillRect(renderer, &this->rect);
+                SDL_RenderFillRect(renderer, &this->rect.rect);
                 break;
             }
             case ESPEON_DRAW_TEXTURE: {
                 auto renderer = this->backendRenderer->getRenderer();
-                SDL_RenderTexture(renderer, this->texture, NULL, &this->rect);
+                SDL_FPoint center = {this->texture->w / 2.f, this->texture->h / 2.f};
+                SDL_RenderTextureRotated(renderer, this->texture, NULL, &this->rect.rect, 0.0, &center, SDL_FLIP_NONE);
                 break;
             }
         }
@@ -66,12 +67,9 @@ namespace espeon {
 
     void Button::setLabel(std::string text, TTF_Font* font, SDL_Color color) {
         auto label = new espeon::Label(
-            {0, 0}, 
-            {static_cast<int>(this->rect.w), static_cast<int>(this->rect.h)}, 
+            {this->pos.x + (this->size.x / 2), this->pos.y + (this->size.y / 2)}, 
+            {static_cast<int>(this->rect.rect.w), static_cast<int>(this->rect.rect.h)}, 
             text, font, color
-        );
-        label->setPos(
-            {this->pos.x + (this->size.x / 2), this->pos.y + (this->size.y / 2)}
         );
         this->addElement(label);
     }

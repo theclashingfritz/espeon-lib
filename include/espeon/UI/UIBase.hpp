@@ -7,6 +7,7 @@
 #include <SDL3/SDL_rect.h>
 
 #include "espeon/types/EDrawType.hpp"
+#include "espeon/types/HoverRect.hpp"
 #include "espeon/types/Vector2.hpp"
 
 namespace espeon {
@@ -29,7 +30,7 @@ namespace espeon {
         }
 
         SDL_FRect getRect() {
-            return this->rect;
+            return this->rect.rect;
         }
         void setRect(SDL_FRect rect) {
             this->rect = rect;
@@ -75,7 +76,7 @@ namespace espeon {
 
         void detectOnClick(SDL_FPoint click) {
             for (auto& element : this->elements) {
-                if (SDL_PointInRectFloat(&click, &element->rect)) {
+                if (SDL_PointInRectFloat(&click, &element->rect.rect)) {
                     element->runOnClick();
                 }
             }
@@ -84,16 +85,13 @@ namespace espeon {
         void detectOnHover(SDL_FPoint coords) {
             if (!this->elements.empty()) {
                 for (auto& element : this->elements) {
-                    bool isHovering = SDL_PointInRectFloat(&coords, &element->rect);
-                    if (isHovering && !wasHovering) {
-                        element->runOnHover();
+                    if (element->rect.update(coords)) {
+                        if (element->rect.justEntered()) {
+                            element->runOnHover();
+                        } else {
+                            element->runOnHoverEnd();
+                        }
                     }
-
-                    if (!isHovering && wasHovering) {
-                        element->runOnHoverEnd();
-                    }
-
-                    wasHovering = isHovering;
                 }
             }
         }
@@ -114,7 +112,7 @@ namespace espeon {
             this->size = size;
         }
     
-        SDL_FRect rect;
+        HoverRect rect;
         EDrawType drawType;
         bool passthrough = false;
         std::vector<std::unique_ptr<UIBase>> elements = {};

@@ -13,7 +13,7 @@ namespace espeon {
         rect.y = pos.y;
         rect.w = size.x;
         rect.h = size.y;
-        this->rect = rect;
+        this->rect = HoverRect(rect);
 
         this->textEngine = this->backendRenderer->getTextEngine();
         this->font = font;
