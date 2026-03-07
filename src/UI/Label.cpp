@@ -34,4 +34,8 @@ namespace espeon {
 
         return font;
     }
+
+    TTF_Text* Label::getText() {
+        return this->text;
+    }
 }

@@ -46,10 +46,20 @@ namespace espeon {
 
     void Button::setLabel(std::string text, TTF_Font* font, SDL_Color color) {
         auto label = new espeon::Label(
-            {this->pos.x + (this->size.x / 2), this->pos.y + (this->size.y / 2)}, 
+            {0, 0}, 
             {static_cast<int>(this->rect.rect.w), static_cast<int>(this->rect.rect.h)}, 
             text, font, color
         );
+
+        int textWidth, textHeight;
+        TTF_GetTextSize(label->getText(), &textWidth, &textHeight);
+
+        auto rect = this->rect.rect;
+        label->setPos({
+            static_cast<int>(rect.x + (rect.w - textWidth) / 2.f),
+            static_cast<int>(rect.y + (rect.h - textHeight) / 2.f)
+        });
+
         this->addElement(label);
     }
 
