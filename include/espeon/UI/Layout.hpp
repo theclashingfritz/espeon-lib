@@ -22,6 +22,15 @@ namespace espeon {
 
         void updateLayout();
 
+        LayoutDirection getDirection();
+        void setDirection(LayoutDirection direction);
+
+        LayoutAlign getAlignment();
+        void setAlignment(LayoutAlign align);
+
+        float getSpacing();
+        void setSpacing(float spacing);
+
     private:
         BackendRenderer* backendRenderer;
 

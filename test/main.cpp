@@ -15,6 +15,34 @@
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 
+class MinecraftButton : public espeon::Button {
+public:
+    MinecraftButton(espeon::Vector2 pos, espeon::Vector2 size, std::string texturePath) : espeon::Button(pos, size, texturePath) {}
+
+    void setLabel(std::string text, TTF_Font* font, SDL_Color color) {
+        auto label = new espeon::Label(
+            {0, 0}, 
+            {static_cast<int>(this->rect.rect.w), static_cast<int>(this->rect.rect.h)}, 
+            text, font, {0, 0, 0, SDL_ALPHA_OPAQUE}
+        );
+
+        TTF_SetTextColor(label->getText(), 0, 0, 0, 255);
+
+        int textWidth, textHeight;
+        TTF_GetTextSize(label->getText(), &textWidth, &textHeight);
+
+        auto rect = this->rect.rect;
+        label->setPos({
+            static_cast<int>(rect.x + (rect.w - textWidth) / 2.f) + 1,
+            static_cast<int>(rect.y + (rect.h - textHeight) / 2.f) + 1
+        });
+
+        this->addElement(label);
+
+        espeon::Button::setLabel(text, font, color);
+    }
+};
+
 class CustomScene : public espeon::Scene {
     bool init() override {
         auto layout = new espeon::Layout(
@@ -22,7 +50,7 @@ class CustomScene : public espeon::Scene {
         );
         this->addElement(layout);
 
-        auto button = new espeon::Button(
+        auto button = new MinecraftButton(
             {100, 100}, {500, 50}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
         );
 
@@ -59,31 +87,6 @@ class CustomScene : public espeon::Scene {
 public:
     static CustomScene* create(SDL_Renderer* renderer) {
         auto* ret = new CustomScene();
-        if (!ret->setup(renderer)) {
-            return nullptr;
-        }
-        return ret;
-    }
-};
-
-class CustomScene2 : public espeon::Scene {
-    bool init() override {
-        auto button = new espeon::Button(
-            {100, 200}, {250, 100}, SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE}
-        );
-
-        button->onClick([]() {
-            std::cout << "hello world 2!" << std::endl;
-        });
-
-        this->addElement(button); 
-
-        return true;
-    }
-
-public:
-    static CustomScene2* create(SDL_Renderer* renderer) {
-        auto* ret = new CustomScene2();
         if (!ret->setup(renderer)) {
             return nullptr;
         }

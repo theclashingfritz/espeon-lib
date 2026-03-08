@@ -29,6 +29,5 @@ namespace espeon {
         
         std::string texturePath;
         SDL_Texture* texture;
-        std::string label;
     };
 }

@@ -17,13 +17,14 @@ namespace espeon {
         void draw() override;
         static TTF_Font* loadFont(std::string path, int fontSize);
 
+        TTF_Text* getText();
+        void setText(TTF_Text* text);
+
     private:
         BackendRenderer* backendRenderer;
 
         TTF_TextEngine* textEngine;
         TTF_Text* text;
         TTF_Font* font;
-
-        SDL_Texture* textTexture;
     };
 }
