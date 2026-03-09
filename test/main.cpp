@@ -26,15 +26,14 @@ public:
             text, font, {0, 0, 0, SDL_ALPHA_OPAQUE}
         );
 
-        TTF_SetTextColor(label->getText(), 0, 0, 0, 255);
+        label->setTextColor({0, 0, 0, 255});
 
-        int textWidth, textHeight;
-        TTF_GetTextSize(label->getText(), &textWidth, &textHeight);
+        auto textSize = label->getTextSize();
 
         auto rect = this->rect.rect;
         label->setPos({
-            static_cast<int>(rect.x + (rect.w - textWidth) / 2.f) + 1,
-            static_cast<int>(rect.y + (rect.h - textHeight) / 2.f) + 1
+            static_cast<int>(rect.x + (rect.w - textSize.x) / 2.f) + 1,
+            static_cast<int>(rect.y + (rect.h - textSize.y) / 2.f) + 1
         });
 
         this->addElement(label);

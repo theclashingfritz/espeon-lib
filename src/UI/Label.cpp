@@ -38,4 +38,15 @@ namespace espeon {
     TTF_Text* Label::getText() {
         return this->text;
     }
+
+    void Label::setTextColor(SDL_Color color) {
+        TTF_SetTextColor(this->text, color.r, color.g, color.b, color.a);
+    }
+
+    Vector2 Label::getTextSize() {
+        int textWidth, textHeight;
+        TTF_GetTextSize(this->text, &textWidth, &textHeight);
+
+        return {textWidth, textHeight};
+    }
 }

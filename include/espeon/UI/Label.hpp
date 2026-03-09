@@ -20,6 +20,10 @@ namespace espeon {
         TTF_Text* getText();
         void setText(TTF_Text* text);
 
+        void setTextColor(SDL_Color color);
+
+        Vector2 getTextSize();
+
     private:
         BackendRenderer* backendRenderer;
 
