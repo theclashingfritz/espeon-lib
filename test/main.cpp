@@ -6,11 +6,13 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+#include <espeon/backend/EventManager.hpp>
 #include <espeon/Scene.hpp>
 #include <espeon/SceneManager.hpp>
 #include <espeon/UI/Button.hpp>
 #include <espeon/UI/Layout.hpp>
 #include <espeon/UI/Label.hpp>
+#include <espeon/UI/Slider.hpp>
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -80,6 +82,21 @@ class CustomScene : public espeon::Scene {
 
         layout->updateLayout();
 
+        auto slider = new espeon::Slider(
+            {500, 500}, {500, 50}, 0, 1, {
+                "./Common/Media/Graphics/Slider_Track.png",
+                "./Common/Media/Graphics/Slider_Button.png"
+            }
+        );
+        auto eventManager = espeon::EventManager::get();
+
+        slider->onValueChanged([=]() {
+            auto value = slider->getValue();
+            std::cout << value << "|" << eventManager->getDragging() << std::endl;
+        });
+
+        this->addElement(slider);
+
         return true;
     }
 
@@ -126,6 +143,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     return SDL_APP_CONTINUE;
 }
 
+bool dragging = false;
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
     if (event->type == SDL_EVENT_QUIT) {

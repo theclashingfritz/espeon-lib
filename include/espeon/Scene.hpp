@@ -20,6 +20,7 @@ namespace espeon {
         void drawAllElements();
         void detectOnClick(SDL_FPoint click);
         void detectOnHover(SDL_FPoint coords);
+        void detectOnDrag();
         
     private:
         virtual bool init() {

@@ -2,6 +2,7 @@
 
 #include <functional>
 
+#include "espeon/backend/EventManager.hpp"
 #include "espeon/Scene.hpp"
 
 namespace espeon {
@@ -18,6 +19,11 @@ namespace espeon {
                 currentScene = T::create(renderer);
             };
             sceneChanged = true;
+        }
+
+        template <typename T>
+        T getScene() {
+            return static_cast<T>(this->currentScene);
         }
 
         void unloadScene() {
@@ -39,9 +45,20 @@ namespace espeon {
 
         void updateSceneEvents(SDL_Event* event) {
             if (currentScene != nullptr) {
+                auto eventManager = EventManager::get();
+
                 if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                     SDL_FPoint click = {event->button.x, event->button.y};
+                    eventManager->setDragging(true);
                     currentScene->detectOnClick(click);
+                }
+
+                if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+                    eventManager->setDragging(false);
+                }
+
+                if (event->type == SDL_EVENT_MOUSE_MOTION && eventManager->getDragging()) {
+                    currentScene->detectOnDrag();
                 }
 
                 SDL_FPoint mouseCoords;

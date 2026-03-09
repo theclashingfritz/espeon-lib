@@ -1,6 +1,7 @@
 #include "espeon/Scene.hpp"
 
 #include "espeon/backend/BackendRenderer.hpp"
+#include "espeon/backend/EventManager.hpp"
 
 namespace espeon {
     bool Scene::setup(SDL_Renderer* renderer) {
@@ -49,6 +50,19 @@ namespace espeon {
                         element->runOnHoverEnd();
                     }
                 }
+            }
+        }
+    }
+
+    void Scene::detectOnDrag() {
+        for (auto& element : this->elements) {
+            float mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+
+            SDL_FPoint mouseRect = {mouseX, mouseY};
+            
+            if (SDL_PointInRectFloat(&mouseRect, &element->rect.rect)) {
+                element->runOnDrag();
             }
         }
     }

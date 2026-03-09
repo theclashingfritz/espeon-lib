@@ -75,6 +75,10 @@ namespace espeon {
             this->c_onHoverEnd = callback;
         }
 
+        void onDrag(std::function<void()> callback) {
+            this->c_onDrag = callback;
+        }
+
         void runOnClick() {
             this->c_onClick();
         }
@@ -85,6 +89,10 @@ namespace espeon {
 
         void runOnHoverEnd() {
             this->c_onHoverEnd();
+        }
+
+        void runOnDrag() {
+            this->c_onDrag();
         }
 
         void detectOnClick(SDL_FPoint click) {
@@ -137,5 +145,6 @@ namespace espeon {
         std::function<void()> c_onClick = std::function<void()>();
         std::function<void()> c_onHover = std::function<void()>();
         std::function<void()> c_onHoverEnd = std::function<void()>();
+        std::function<void()> c_onDrag = std::function<void()>();
     };
 }
