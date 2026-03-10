@@ -5,6 +5,7 @@
 
 #include "espeon/backend/BackendRenderer.hpp"
 #include "espeon/types/Vector2.hpp"
+#include "espeon/UI/Label.hpp"
 #include "espeon/UI/UIBase.hpp"
 
 namespace espeon {
@@ -16,6 +17,7 @@ namespace espeon {
         void draw() override;
 
         void setLabel(std::string text, TTF_Font* font, SDL_Color color);
+        void updateLabel(std::string text);
 
         bool loadTexture(std::string texturePath);
         void unloadTexture();
@@ -29,5 +31,6 @@ namespace espeon {
         
         std::string texturePath;
         SDL_Texture* texture;
+        espeon::Label* label;
     };
 }

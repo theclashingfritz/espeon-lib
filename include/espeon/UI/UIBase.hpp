@@ -61,6 +61,9 @@ namespace espeon {
             this->onHoverEnd([]() {
 
             });
+            this->onDrag([]() {
+
+            });
         }
 
         void onClick(std::function<void()> callback) {
@@ -113,6 +116,14 @@ namespace espeon {
                             element->runOnHoverEnd();
                         }
                     }
+                }
+            }
+        }
+
+        void detectOnDrag(SDL_FPoint mousePos) {
+            for (auto& element : this->elements) {
+                if (SDL_PointInRectFloat(&mousePos, &element->rect.rect)) {
+                    element->runOnDrag();
                 }
             }
         }

@@ -35,6 +35,10 @@ namespace espeon {
         return font;
     }
 
+    void Label::updateText(std::string text) {
+        this->text = TTF_CreateText(this->textEngine, this->font, text.c_str(), 0);
+    }
+ 
     TTF_Text* Label::getText() {
         return this->text;
     }

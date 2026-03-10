@@ -17,6 +17,8 @@ namespace espeon {
         void draw() override;
         static TTF_Font* loadFont(std::string path, int fontSize);
 
+        void updateText(std::string text)
+;
         TTF_Text* getText();
         void setText(TTF_Text* text);
 

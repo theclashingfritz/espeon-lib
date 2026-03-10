@@ -1,4 +1,6 @@
 #include <iostream>
+#include <format>
+#include <algorithm>
 
 #define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL.h>
@@ -88,11 +90,13 @@ class CustomScene : public espeon::Scene {
                 "./Common/Media/Graphics/Slider_Button.png"
             }
         );
-        auto eventManager = espeon::EventManager::get();
+
+        slider->setLabel(std::format("FOV: {}", slider->getValue()), font, {255, 255, 255, SDL_ALPHA_OPAQUE});
 
         slider->onValueChanged([=]() {
             auto value = slider->getValue();
-            std::cout << value << "|" << eventManager->getDragging() << std::endl;
+            std::cout << value << std::endl;
+            slider->updateLabel(std::format("FOV: {}", std::to_string((int)(value * 100))));
         });
 
         this->addElement(slider);

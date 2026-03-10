@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
+set(CMAKE_CXX_STANDARD 23)
 project(espeon VERSION 0.0.1 LANGUAGES C CXX)
 
 option(ESPEON_BUILD_TESTS "Build espeon Tests" OFF)
