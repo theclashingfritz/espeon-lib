@@ -61,10 +61,6 @@ namespace espeon {
         this->addElement(label);
     }
 
-    void Button::updateLabel(std::string text) {
-        this->label->updateText(text);
-    }
-
     bool Button::loadTexture(std::string texturePath) {
         this->unloadTexture();
 
@@ -79,13 +75,5 @@ namespace espeon {
     void Button::unloadTexture() {
         SDL_DestroyTexture(this->texture);
         this->texture = nullptr;
-    }
-
-    SDL_Texture* Button::getTexture() {
-        return this->texture;
-    }
-
-    void Button::setTexture(SDL_Texture* texture) {
-        this->texture = texture;
     }
 }

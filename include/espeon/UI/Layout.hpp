@@ -22,14 +22,29 @@ namespace espeon {
 
         void updateLayout();
 
-        LayoutDirection getDirection();
-        void setDirection(LayoutDirection direction);
+        Layout::LayoutDirection getDirection() {
+            return this->direction;
+        }
 
-        LayoutAlign getAlignment();
-        void setAlignment(LayoutAlign align);
+        void setDirection(LayoutDirection direction) {
+            this->direction = direction;
+        }
 
-        float getSpacing();
-        void setSpacing(float spacing);
+        LayoutAlign getAlignment() {
+            return this->align;
+        }
+
+        void setAlignment(LayoutAlign align) {
+            this->align = align;
+        }
+
+        float getSpacing() {
+            return this->spacing;
+        }
+
+        void setSpacing(float spacing) {
+            this->spacing = spacing;
+        }
 
     private:
         BackendRenderer* backendRenderer;

@@ -17,12 +17,21 @@ namespace espeon {
         void draw() override;
         static TTF_Font* loadFont(std::string path, int fontSize);
 
-        void updateText(std::string text)
-;
-        TTF_Text* getText();
-        void setText(TTF_Text* text);
+        void updateText(std::string text) {
+            TTF_DestroyText(this->text);
+            this->text = TTF_CreateText(this->textEngine, this->font, text.c_str(), 0);
+        }
 
-        void setTextColor(SDL_Color color);
+        TTF_Text* getText() {
+            return this->text;
+        }
+        void setText(TTF_Text* text) {
+            this->text = text;
+        }
+
+        void setTextColor(SDL_Color color) {
+            TTF_SetTextColor(this->text, color.r, color.g, color.b, color.a);
+        }
 
         Vector2 getTextSize();
 

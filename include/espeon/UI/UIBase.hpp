@@ -100,6 +100,10 @@ namespace espeon {
 
         void detectOnClick(SDL_FPoint click) {
             for (auto& element : this->elements) {
+                if (element->passthrough) {
+                    element->detectOnClick(click);
+                }
+                
                 if (SDL_PointInRectFloat(&click, &element->rect.rect)) {
                     element->runOnClick();
                 }
@@ -109,6 +113,10 @@ namespace espeon {
         void detectOnHover(SDL_FPoint coords) {
             if (!this->elements.empty()) {
                 for (auto& element : this->elements) {
+                    if (element->passthrough) {
+                        element->detectOnHover(coords);
+                    }
+
                     if (element->rect.update(coords)) {
                         if (element->rect.justEntered()) {
                             element->runOnHover();
@@ -122,8 +130,12 @@ namespace espeon {
 
         void detectOnDrag(SDL_FPoint mousePos) {
             for (auto& element : this->elements) {
-                if (SDL_PointInRectFloat(&mousePos, &element->rect.rect)) {
-                    element->runOnDrag();
+                if (element->passthrough) {
+                    element->detectOnDrag(mousePos);
+                } else {
+                    if (SDL_PointInRectFloat(&mousePos, &element->rect.rect)) {
+                        element->runOnDrag();
+                    }
                 }
             }
         }

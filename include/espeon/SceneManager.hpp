@@ -57,7 +57,7 @@ namespace espeon {
                     eventManager->setDragging(false);
                 }
 
-                if (event->type == SDL_EVENT_MOUSE_MOTION && eventManager->getDragging()) {
+                if (event->type == SDL_EVENT_MOUSE_MOTION && eventManager->isDragging()) {
                     currentScene->detectOnDrag();
                 }
 

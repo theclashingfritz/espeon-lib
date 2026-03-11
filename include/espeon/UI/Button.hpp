@@ -17,13 +17,20 @@ namespace espeon {
         void draw() override;
 
         void setLabel(std::string text, TTF_Font* font, SDL_Color color);
-        void updateLabel(std::string text);
+        void updateLabel(std::string text) {
+            this->label->updateText(text);
+        }
 
         bool loadTexture(std::string texturePath);
         void unloadTexture();
 
-        SDL_Texture* getTexture();
-        void setTexture(SDL_Texture* texture);
+        SDL_Texture* getTexture() {
+            return this->texture;
+        }
+
+        void setTexture(SDL_Texture* texture) {
+            this->texture = texture;
+        }
     private:
         BackendRenderer* backendRenderer;
 

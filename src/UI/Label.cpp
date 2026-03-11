@@ -35,18 +35,6 @@ namespace espeon {
         return font;
     }
 
-    void Label::updateText(std::string text) {
-        this->text = TTF_CreateText(this->textEngine, this->font, text.c_str(), 0);
-    }
- 
-    TTF_Text* Label::getText() {
-        return this->text;
-    }
-
-    void Label::setTextColor(SDL_Color color) {
-        TTF_SetTextColor(this->text, color.r, color.g, color.b, color.a);
-    }
-
     Vector2 Label::getTextSize() {
         int textWidth, textHeight;
         TTF_GetTextSize(this->text, &textWidth, &textHeight);

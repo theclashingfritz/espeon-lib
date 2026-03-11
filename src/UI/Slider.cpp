@@ -48,7 +48,7 @@ namespace espeon {
 
         auto eventManager = EventManager::get();
         this->onDrag([this, minValue, maxValue, eventManager]() {
-            if (eventManager->getDragging()) {
+            if (eventManager->isDragging()) {
                 std::cout << "dragging" << std::endl;
             }
 
@@ -90,13 +90,5 @@ namespace espeon {
         });
 
         this->addElement(this->label);
-    }
-
-    void Slider::updateLabel(std::string text) {
-        this->label->updateText(text);
-    }
-
-    float Slider::getValue() {
-        return this->value;
     }
 }

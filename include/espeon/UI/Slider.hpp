@@ -25,9 +25,13 @@ namespace espeon {
         void draw() override;
 
         void setLabel(std::string text, TTF_Font* font, SDL_Color color);
-        void updateLabel(std::string text);
-        
-        float getValue();
+        void updateLabel(std::string text) {
+            this->label->updateText(text);
+        }
+
+        float getValue() {
+            return this->value;
+        }
     private:
         BackendRenderer* backendRenderer;
 

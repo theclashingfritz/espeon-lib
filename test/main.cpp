@@ -1,6 +1,5 @@
 #include <iostream>
 #include <format>
-#include <algorithm>
 
 #define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL.h>

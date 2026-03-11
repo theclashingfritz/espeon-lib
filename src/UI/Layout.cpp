@@ -124,28 +124,4 @@ namespace espeon {
             }
         }
     }
-
-    Layout::LayoutDirection Layout::getDirection() {
-        return this->direction;
-    }
-
-    void Layout::setDirection(Layout::LayoutDirection direction) {
-        this->direction = direction;
-    }
-
-    Layout::LayoutAlign Layout::getAlignment() {
-        return this->align;
-    }
-
-    void Layout::setAlignment(Layout::LayoutAlign align) {
-        this->align = align;
-    }
-
-    float Layout::getSpacing() {
-        return this->spacing;
-    }
-
-    void Layout::setSpacing(float spacing) {
-        this->spacing = spacing;
-    }
 }

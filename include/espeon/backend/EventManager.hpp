@@ -8,14 +8,14 @@ namespace espeon {
             return &instance;
         }
  
-        bool getDragging() {
-            return this->isDragging;
+        bool isDragging() {
+            return this->dragging;
         }
 
         void setDragging(bool dragging) {
-            this->isDragging = dragging;
+            this->dragging = dragging;
         }
     private:
-        bool isDragging = false;
+        bool dragging = false;
     };
 }
