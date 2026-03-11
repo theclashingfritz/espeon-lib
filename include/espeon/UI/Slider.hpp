@@ -33,6 +33,12 @@ namespace espeon {
             return this->value;
         }
     private:
+        using UIBase::onClick;
+        using UIBase::runOnClick;
+        using UIBase::runOnDrag;
+        using UIBase::runOnHover;
+        using UIBase::runOnHoverEnd;
+
         BackendRenderer* backendRenderer;
 
         SDL_FRect trackRect;

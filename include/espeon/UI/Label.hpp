@@ -35,6 +35,11 @@ namespace espeon {
         Vector2 getTextSize();
 
     private:
+        using UIBase::runOnClick;
+        using UIBase::runOnDrag;
+        using UIBase::runOnHover;
+        using UIBase::runOnHoverEnd;
+
         BackendRenderer* backendRenderer;
 
         TTF_TextEngine* textEngine;

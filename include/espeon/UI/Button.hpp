@@ -32,6 +32,11 @@ namespace espeon {
             this->texture = texture;
         }
     private:
+        using UIBase::runOnClick;
+        using UIBase::runOnDrag;
+        using UIBase::runOnHover;
+        using UIBase::runOnHoverEnd;
+
         BackendRenderer* backendRenderer;
 
         SDL_Color fillColor;

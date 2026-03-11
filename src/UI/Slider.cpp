@@ -18,12 +18,12 @@ namespace espeon {
         this->value = defaultValue;
         this->texturesPath = texturesPath;
 
-        this->trackTexture = IMG_LoadTexture(this->backendRenderer->getRenderer(), texturesPath.trackTexturePath.c_str());
+        this->trackTexture = this->backendRenderer->loadImage(texturesPath.trackTexturePath);
         if (!this->trackTexture) {
             std::cout << "Failed to load texture: " << SDL_GetError() << std::endl;
         }
 
-        this->buttonTexture = IMG_LoadTexture(this->backendRenderer->getRenderer(), texturesPath.buttonTexturePath.c_str());
+        this->buttonTexture = this->backendRenderer->loadImage(texturesPath.buttonTexturePath);
         if (!this->buttonTexture) {
             std::cout << "Failed to load texture: " << SDL_GetError() << std::endl;
         }
