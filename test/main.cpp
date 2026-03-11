@@ -57,7 +57,7 @@ class CustomScene : public espeon::Scene {
         );
 
         button->onClick([button]() {
-            button->loadTexture("./don_toliver.jpg");
+            std::cout << "i was just clicked!" << std::endl;
         });
 
         button->onHover([button]() {

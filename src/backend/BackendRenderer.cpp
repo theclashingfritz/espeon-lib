@@ -14,4 +14,10 @@ namespace espeon {
 
         return rect;
     }
+
+    SDL_Texture* BackendRenderer::loadImage(std::string path) {
+        SDL_Texture* texture;
+        texture = IMG_LoadTexture(this->renderer, path.c_str());
+        return texture;
+    }
 }

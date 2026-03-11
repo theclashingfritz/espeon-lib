@@ -18,8 +18,7 @@ namespace espeon {
         static TTF_Font* loadFont(std::string path, int fontSize);
 
         void updateText(std::string text) {
-            TTF_DestroyText(this->text);
-            this->text = TTF_CreateText(this->textEngine, this->font, text.c_str(), 0);
+            TTF_SetTextString(this->text, text.c_str(), text.length());
         }
 
         TTF_Text* getText() {

@@ -64,7 +64,7 @@ namespace espeon {
     bool Button::loadTexture(std::string texturePath) {
         this->unloadTexture();
 
-        this->texture = IMG_LoadTexture(this->backendRenderer->getRenderer(), texturePath.c_str());
+        this->texture = this->backendRenderer->loadImage(texturePath);
         if (!this->texture) {
             return false;
         }

@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
+
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
 #include "espeon/types/Vector2.hpp"
@@ -28,6 +31,8 @@ namespace espeon {
 
         SDL_FRect drawPrimitive(Vector2 pos, Vector2 size, SDL_Color outlineColor);
         SDL_FRect drawFilledPrimitive(Vector2 pos, Vector2 size, SDL_Color outlineColor, SDL_Color fillColor);
+
+        SDL_Texture* loadImage(std::string path);
     
     private:
         SDL_Renderer* renderer;
