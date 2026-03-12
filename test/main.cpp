@@ -11,6 +11,7 @@
 #include <espeon/Scene.hpp>
 #include <espeon/SceneManager.hpp>
 #include <espeon/UI/Button.hpp>
+#include <espeon/UI/Image.hpp>
 #include <espeon/UI/Layout.hpp>
 #include <espeon/UI/Label.hpp>
 #include <espeon/UI/Slider.hpp>
@@ -92,13 +93,18 @@ class CustomScene : public espeon::Scene {
 
         slider->setLabel(std::format("FOV: {}", slider->getValue()), font, {255, 255, 255, SDL_ALPHA_OPAQUE});
 
-        slider->onValueChanged([=]() {
-            auto value = slider->getValue();
+        slider->onValueChanged([=](float value) {
             std::cout << value << std::endl;
             slider->updateLabel(std::format("FOV: {}", std::to_string((int)(value * 100))));
         });
 
         this->addElement(slider);
+
+        auto image = new espeon::Image(
+            {700, 700}, {100, 100}, "./Common/Media/Graphics/MainMenuButton_Norm.png"
+        );
+
+        this->addElement(image);
 
         return true;
     }

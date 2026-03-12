@@ -18,7 +18,7 @@ namespace espeon {
 
         Slider(Vector2 pos, Vector2 size, float minValue, float maxValue, SliderTextures texturesPath, float defaultValue = 0.f);
 
-        void onValueChanged(std::function<void()> callback) {
+        void onValueChanged(std::function<void(float)> callback) {
             this->c_onValueChanged = callback;
         };
 
@@ -53,6 +53,6 @@ namespace espeon {
 
 
 
-        std::function<void()> c_onValueChanged = std::function<void()>();
+        std::function<void(float)> c_onValueChanged = std::function<void(float)>();
     };
 }

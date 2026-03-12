@@ -43,7 +43,7 @@ namespace espeon {
             
             this->value = SDL_clamp((buttonRect.rect.x - trackRect.x) / trackRect.w, minValue, maxValue);
 
-            this->c_onValueChanged();
+            this->c_onValueChanged(this->value);
         });
 
         auto eventManager = EventManager::get();
@@ -59,7 +59,7 @@ namespace espeon {
             
             this->value = SDL_clamp((buttonRect.rect.x - trackRect.x) / trackRect.w, minValue, maxValue);
 
-            this->c_onValueChanged();
+            this->c_onValueChanged(this->value);
         });
     }
 
