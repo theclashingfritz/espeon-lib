@@ -35,10 +35,10 @@ namespace espeon {
             this->elements.push_back(std::unique_ptr<UIBase>(element));
         }
         void drawAllElements() {
-            if (!elements.empty()) {
-                for (auto& element : elements) {
-                    element->draw();
-                }
+            if (elements.empty()) { return; }
+            
+            for (auto& element : elements) {
+                element->draw();
             }
         }
 
@@ -99,6 +99,8 @@ namespace espeon {
         }
 
         void detectOnClick(SDL_FPoint click) {
+            if (this->elements.empty()) { return; }
+            
             for (auto& element : this->elements) {
                 if (element->passthrough) {
                     element->detectOnClick(click);
@@ -111,24 +113,26 @@ namespace espeon {
         }
 
         void detectOnHover(SDL_FPoint coords) {
-            if (!this->elements.empty()) {
-                for (auto& element : this->elements) {
-                    if (element->passthrough) {
-                        element->detectOnHover(coords);
-                    }
+            if (this->elements.empty()) { return; }
+            
+            for (auto& element : this->elements) {
+                if (element->passthrough) {
+                    element->detectOnHover(coords);
+                }
 
-                    if (element->rect.update(coords)) {
-                        if (element->rect.justEntered()) {
-                            element->runOnHover();
-                        } else {
-                            element->runOnHoverEnd();
-                        }
+                if (element->rect.update(coords)) {
+                    if (element->rect.justEntered()) {
+                        element->runOnHover();
+                    } else {
+                        element->runOnHoverEnd();
                     }
                 }
             }
         }
 
         void detectOnDrag(SDL_FPoint mousePos) {
+            if (this->elements.empty()) { return; }
+            
             for (auto& element : this->elements) {
                 if (element->passthrough) {
                     element->detectOnDrag(mousePos);

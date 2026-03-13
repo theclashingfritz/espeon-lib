@@ -44,27 +44,27 @@ namespace espeon {
         }
 
         void updateSceneEvents(SDL_Event* event) {
-            if (currentScene != nullptr) {
-                auto eventManager = EventManager::get();
+            if (currentScene == nullptr) { return; }
+              
+            auto eventManager = EventManager::get();
 
-                if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-                    SDL_FPoint click = {event->button.x, event->button.y};
-                    eventManager->setDragging(true);
-                    currentScene->detectOnClick(click);
-                }
-
-                if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
-                    eventManager->setDragging(false);
-                }
-
-                if (event->type == SDL_EVENT_MOUSE_MOTION && eventManager->isDragging()) {
-                    currentScene->detectOnDrag();
-                }
-
-                SDL_FPoint mouseCoords;
-                SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
-                currentScene->detectOnHover(mouseCoords);
+            if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+                SDL_FPoint click = {event->button.x, event->button.y};
+                eventManager->setDragging(true);
+                currentScene->detectOnClick(click);
             }
+
+            if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+                eventManager->setDragging(false);
+            }
+
+            if (event->type == SDL_EVENT_MOUSE_MOTION && eventManager->isDragging()) {
+                currentScene->detectOnDrag();
+            }
+
+            SDL_FPoint mouseCoords;
+            SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
+            currentScene->detectOnHover(mouseCoords);
         } 
 
     private:

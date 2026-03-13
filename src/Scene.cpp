@@ -23,6 +23,8 @@ namespace espeon {
     }
 
     void Scene::detectOnClick(SDL_FPoint click) {
+        if (this->elements.empty()) { return; }
+        
         for (auto& element : this->elements) {
             if (element->passthrough) {
                 element->detectOnClick(click);
@@ -36,24 +38,26 @@ namespace espeon {
 
     void Scene::detectOnHover(SDL_FPoint coords) {
         bool wasHovering = false;
-        if (!this->elements.empty()) {
-            for (auto& element : this->elements) {
-                if (element->passthrough) {
-                    element->detectOnHover(coords);
-                }
+        if (this->elements.empty()) { return; }
+          
+        for (auto& element : this->elements) {
+            if (element->passthrough) {
+                element->detectOnHover(coords);
+            }
 
-                if (element->rect.update(coords)) {
-                    if (element->rect.justEntered()) {
-                        element->runOnHover();
-                    } else {
-                        element->runOnHoverEnd();
-                    }
+            if (element->rect.update(coords)) {
+                if (element->rect.justEntered()) {
+                    element->runOnHover();
+                } else {
+                    element->runOnHoverEnd();
                 }
             }
         }
     }
 
     void Scene::detectOnDrag() {
+        if (this->elements.empty()) { return; }
+        
         for (auto& element : this->elements) {
             float mouseX, mouseY;
             SDL_GetMouseState(&mouseX, &mouseY);
